@@ -1,0 +1,122 @@
+Descriptor:
+  Name: Summarize recent sign-in logs from Entra ID for a certain user and IP address from logs in Microsoft Sentinel
+  DisplayName: "Sentinel KQL: Entra ID Sign-in Logs"
+  Description: Get the recent sign-in logs from Entra ID for a certain user, IP address, and time range from logs in Microsoft Sentinel.
+
+SkillGroups:
+  - Format: KQL
+    Skills:
+      - Name: GetEntraIDSignInLogs
+        DisplayName: Get Entra ID Sign-in Logs
+        Description: Fetches recent Entra ID sign-in logs for a certain user, IP address, and time range from Microsoft Sentinel.
+        Inputs:
+          - Name: userPrincipalName
+            Description: The username principal name to lookup (e.g. user@domain.com)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // This query fetches recent Entra ID sign-in logs for a specific user.
+            SigninLogs_CL
+            | where UserPrincipalName_s =~ '{{userPrincipalName}}'
+            | project UserPrincipalName_s, UserDisplayName_s, IPAddress, ConditionalAccessPolicies_s, TimeGenerated
+
+      - Name: GetEntraIDSignInLogsByIP
+        DisplayName: Get Entra ID Sign-in Logs by IP
+        Description: Fetches recent Entra ID sign-in logs for a specific IP address and time range from Microsoft Sentinel.
+        Inputs:
+          - Name: IPAddress
+            Description: The IP address to lookup (e.g. 192.168.1.1)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // This query fetches recent Entra ID sign-in logs for a specific IP address.
+            SigninLogs_CL
+            | where IPAddress == '{{IPAddress}}'
+            | project UserPrincipalName_s, UserDisplayName_s, IPAddress, ConditionalAccessPolicies_s, TimeGenerated
+
+      - Name: GetEntraIDSignInLogsByTimeRange
+        DisplayName: Get Entra ID Sign-in Logs by Time Range
+        Description: Fetches recent Entra ID sign-in logs for a specific time range from Microsoft Sentinel.
+        Inputs:
+          - Name: StartTime
+            Description: The start time for the log search (e.g. 2024-09-01T00:00:00Z)
+            Required: true
+          - Name: EndTime
+            Description: The end time for the log search (e.g. 2024-09-01T23:59:59Z)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // This query fetches recent Entra ID sign-in logs for a specific time range.
+            SigninLogs_CL
+            | where TimeGenerated between (datetime('{{StartTime}}') .. datetime('{{EndTime}}'))
+            | project UserPrincipalName_s, UserDisplayName_s, IPAddress, ConditionalAccessPolicies_s, TimeGenerated
+
+      - Name: GetEntraIDSignInLogsByUserAndIP
+        DisplayName: Get Entra ID Sign-in Logs by User and IP
+        Description: Fetches recent Entra ID sign-in logs for a specific user and IP address within a given time range from Microsoft Sentinel.
+        Inputs:
+          - Name: userPrincipalName
+            Description: The username principal name to lookup (e.g. user@domain.com)
+            Required: true
+          - Name: IPAddress
+            Description: The IP address to lookup (e.g. 192.168.1.1)
+            Required: true
+          - Name: StartTime
+            Description: The start time for the log search (e.g. 2024-09-01T00:00:00Z)
+            Required: true
+          - Name: EndTime
+            Description: The end time for the log search (e.g. 2024-09-01T23:59:59Z)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // This query fetches recent Entra ID sign-in logs for a specific user and IP address within a given time range.
+            SigninLogs_CL
+            | where UserPrincipalName_s =~ '{{userPrincipalName}}' and IPAddress == '{{IPAddress}}' and TimeGenerated between (datetime('{{StartTime}}') .. datetime('{{EndTime}}'))
+            | project UserPrincipalName_s, UserDisplayName_s, IPAddress, ConditionalAccessPolicies_s, TimeGenerated
+      - Name: GetEntraIDSignInLogsByUserAndIP
+        DisplayName: Get Entra ID Sign-in Logs by User and IP
+        Description: Fetches recent Entra ID sign-in logs for a specific user and IP address within a given time range from Microsoft Sentinel.
+        Inputs:
+          - Name: userPrincipalName
+            Description: The username principal name to lookup (e.g. user@domain.com)
+            Required: true
+          - Name: IPAddress
+            Description: The IP address to lookup (e.g. 192.168.1.1)
+            Required: true
+          - Name: StartTime
+            Description: The start time for the log search (e.g. 2024-09-01T00:00:00Z)
+            Required: true
+          - Name: EndTime
+            Description: The end time for the log search (e.g. 2024-09-01T23:59:59Z)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // This query fetches recent Entra ID sign-in logs for a specific user and IP address within a given time range.
+            SigninLogs_CL
+            | where UserPrincipalName_s =~ '{{userPrincipalName}}' and IPAddress == '{{IPAddress}}' and TimeGenerated between (datetime('{{StartTime}}') .. datetime('{{EndTime}}'))
+            | project UserPrincipalName_s, UserDisplayName_s, IPAddress, ConditionalAccessPolicies_s, TimeGenerated
