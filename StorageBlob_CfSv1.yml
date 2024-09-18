@@ -26,4 +26,152 @@ SkillGroups:
             // This query fetches recent access logs for a specific Azure Blob Storage account, user, and IP address.
             StorageBlobLogs
             | where UserPrincipalName_s =~ '{{userPrincipalName}}' and CallerIpAddress == '{{IPAddress}}'
-            | project UserPrincipalName_s, AccountName, Location, Protocol, OperationName, AuthenticationType, StatusCode, StatusText, TimeGenerated, Uri, CallerIpAddress
+            
+      - Name: SummarizeAccessByIP
+        DisplayName: Summarize Access by IP Address
+        Description: Summarizes access counts by IP address.
+        Inputs:
+          - Name: IPAddress
+            Description: The IP address to lookup (e.g. 192.168.1.1)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by IP address.
+            StorageBlobLogs
+            | summarize AccessCount = count() by CallerIpAddress
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByAccount
+        DisplayName: Summarize Access by Account Name
+        Description: Summarizes access counts by account name.
+        Inputs:
+          - Name: AccountName
+            Description: The account name to lookup (e.g. accountname)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by account name.
+            StorageBlobLogs
+            | summarize AccessCount = count() by AccountName
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByOperation
+        DisplayName: Summarize Access by Operation Name
+        Description: Summarizes access counts by operation name.
+        Inputs:
+          - Name: OperationName
+            Description: The operation name to lookup (e.g. GetBlob)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by operation name.
+            StorageBlobLogs
+            | summarize AccessCount = count() by OperationName
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByStatusCode
+        DisplayName: Summarize Access by Status Code
+        Description: Summarizes access counts by status code.
+        Inputs:
+          - Name: StatusCode
+            Description: The status code to lookup (e.g. 200)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by status code.
+            StorageBlobLogs
+            | summarize AccessCount = count() by StatusCode
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByUser
+        DisplayName: Summarize Access by User Principal Name
+        Description: Summarizes access counts by user principal name.
+        Inputs:
+          - Name: userPrincipalName
+            Description: The username principal name to lookup (e.g. user@domain.com)
+            Required: true
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by user principal name.
+            StorageBlobLogs
+            | summarize AccessCount = count() by UserPrincipalName_s
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByLocation
+        DisplayName: Summarize Access by Location
+        Description: Summarizes access counts by location.
+        Inputs:
+          - Name: Location
+            Description: The location to lookup (e.g. eastus)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by location.
+            StorageBlobLogs
+            | summarize AccessCount = count() by Location
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByProtocol
+        DisplayName: Summarize Access by Protocol
+        Description: Summarizes access counts by protocol.
+        Inputs:
+          - Name: Protocol
+            Description: The protocol to lookup (e.g. HTTPS)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by protocol.
+            StorageBlobLogs
+            | summarize AccessCount = count() by Protocol
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByAuthType
+        DisplayName: Summarize Access by Authentication Type
+        Description: Summarizes access counts by authentication type.
+        Inputs:
+          - Name: AuthenticationType
+            Description: The authentication type to lookup (e.g. AccountKey)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by authentication type.
+            StorageBlobLogs
+            | summarize AccessCount = count() by AuthenticationType
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByStatusText
+        DisplayName: Summarize Access by Status Text
+        Description: Summarizes access counts by status text.
+        Inputs:
+          - Name: StatusText
+            Description: The status text to lookup (e.g. ServerBusy)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by status text.
+            StorageBlobLogs
+            | summarize AccessCount = count() by StatusText
+            | order by AccessCount desc
+
+      - Name: SummarizeAccessByTimeGenerated
+        DisplayName: Summarize Access by Time Generated
+        Description: Summarizes access counts by time generated (hourly).
+        Inputs:
+          - Name: TimeGenerated
+            Description: The time generated to lookup (e.g. 2024-09-18T13:55:40.839Z)
+            Required: false
+        Settings:
+          Target: Sentinel
+          Template: |-
+            // This query summarizes access counts by time generated (hourly).
+            StorageBlobLogs
+            | summarize AccessCount = count() by bin(TimeGenerated, 1h)
