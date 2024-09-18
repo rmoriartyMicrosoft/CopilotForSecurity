@@ -15,10 +15,10 @@ SkillGroups:
             Required: true
         Settings:
           Target: Sentinel
-          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
-          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
-          ResourceGroupName: tpuniverse-security-rg
-          WorkspaceName: sentinelws
+          TenantId: *
+          SubscriptionId: *
+          ResourceGroupName: *
+          WorkspaceName: *
           Template: |-
             // This query fetches recent Entra ID sign-in logs for a specific user.
             SigninLogs_CL
@@ -34,10 +34,10 @@ SkillGroups:
             Required: true
         Settings:
           Target: Sentinel
-          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
-          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
-          ResourceGroupName: tpuniverse-security-rg
-          WorkspaceName: sentinelws
+          TenantId: *
+          SubscriptionId: *
+          ResourceGroupName: *
+          WorkspaceName: *
           Template: |-
             // This query fetches recent Entra ID sign-in logs for a specific IP address.
             SigninLogs_CL
@@ -56,10 +56,10 @@ SkillGroups:
             Required: true
         Settings:
           Target: Sentinel
-          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
-          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
-          ResourceGroupName: tpuniverse-security-rg
-          WorkspaceName: sentinelws
+          TenantId: *
+          SubscriptionId: *
+          ResourceGroupName: *
+          WorkspaceName: *
           Template: |-
             // This query fetches recent Entra ID sign-in logs for a specific time range.
             SigninLogs_CL
@@ -84,10 +84,10 @@ SkillGroups:
             Required: true
         Settings:
           Target: Sentinel
-          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
-          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
-          ResourceGroupName: tpuniverse-security-rg
-          WorkspaceName: sentinelws
+          TenantId: *
+          SubscriptionId: *
+          ResourceGroupName: *
+          WorkspaceName: *
           Template: |-
             // This query fetches recent Entra ID sign-in logs for a specific user and IP address within a given time range.
             SigninLogs_CL
@@ -111,10 +111,10 @@ SkillGroups:
             Required: true
         Settings:
           Target: Sentinel
-          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
-          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
-          ResourceGroupName: tpuniverse-security-rg
-          WorkspaceName: sentinelws
+          TenantId: *
+          SubscriptionId: *
+          ResourceGroupName: *
+          WorkspaceName: *
           Template: |-
             // This query fetches recent Entra ID sign-in logs for a specific user and IP address within a given time range.
             SigninLogs_CL
