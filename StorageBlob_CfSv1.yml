@@ -1,0 +1,29 @@
+Descriptor:
+  Name: Summarize recent access logs from Azure Blob Storage for a certain user and IP address from logs in Microsoft Sentinel
+  DisplayName: "Sentinel KQL: Azure Blob Storage Access Logs"
+  Description: Get the recent access logs from Azure Blob Storage for a certain user, IP address, and time range from logs in Microsoft Sentinel.
+
+SkillGroups:
+  - Format: KQL
+    Skills:
+      - Name: GetBlobStorageAccessLogs
+        DisplayName: Get Blob Storage Access Logs
+        Description: Fetches recent access logs for a specific Azure Blob Storage account, user, and IP address from Microsoft Sentinel.
+        Inputs:
+          - Name: userPrincipalName
+            Description: The username principal name to lookup (e.g. user@domain.com)
+            Required: true
+          - Name: IPAddress
+            Description: The IP address to lookup (e.g. 192.168.1.1)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // This query fetches recent access logs for a specific Azure Blob Storage account, user, and IP address.
+            StorageBlobLogs
+            | where UserPrincipalName_s =~ '{{userPrincipalName}}' and CallerIpAddress == '{{IPAddress}}'
+            | project UserPrincipalName_s, AccountName, Location, Protocol, OperationName, AuthenticationType, StatusCode, StatusText, TimeGenerated, Uri, CallerIpAddress
