@@ -1,0 +1,27 @@
+Descriptor:
+  Name: Summarize recent authentication logs from Sentinel for a certain user, IP address, and time range
+  DisplayName: "ASIM Authentication: Authentication Logs"
+  Description: Get the recent authentication logs from Sentinel for a certain user, IP address, and time range from logs in Microsoft Sentinel.
+
+SkillGroups:
+  - Format: KQL
+    Skills:
+      - Name: GetLoginsFromSpecificIP
+        DisplayName: Get Logins From Specific IP
+        Description: Fetches all logins from a specific IP address from Microsoft Sentinel.
+        Inputs:
+          - Name: ip
+            Description: The IP address to lookup (e.g. 192.168.1.1)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // Query to find logins from a specific IP address
+            _ASim_Authentication
+            | where Tim
+            | where SrcIpAddr == '{{ip}}'
+            | where TimeGenerated > ago(24h)
