@@ -1,6 +1,6 @@
 Descriptor:
   Name: Summarize recent network sessions from ASIM_NetworkSessions for a certain user, IP address, and time range from logs in Microsoft Sentinel
-  DisplayName: "Sentinel KQL: ASIM_NetworkSessions"
+  DisplayName: "ASIM Network Logs: ASIM_NetworkSessions"
   Description: Get the recent network sessions from ASIM_NetworkSessions for a certain user, IP address, and time range from logs in Microsoft Sentinel.
 
 SkillGroups:
@@ -21,5 +21,27 @@ SkillGroups:
           WorkspaceName: sentinelws
           Template: |-
             // This query fetches recent ASIM network sessions for a specific IP address.
-            _ASim_NetworkSession
+            _ASim_NetworkSessionBuiltIn
             | where SrcIpAddr == '{{IPAddress}}'
+            | where TimeGenerated > ago(24h)
+      - Name: GetASIMNetworkSessionsByDestinationIPAndPort
+        DisplayName: Get ASIM Network Sessions by Destination IP and Port
+        Description: Fetches recent ASIM network sessions for a specific destination IP address and port.
+        Inputs:
+          - Name: DstIpAddr
+            Description: The destination IP address to lookup (e.g. 104.208.16.91)
+            Required: true
+          - Name: DstPortNumber
+            Description: The destination port number to lookup (e.g. 443)
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: 45a40c47-7b9c-407c-9cd1-879c9dcb8924
+          SubscriptionId: d9fa246e-8cdc-4cd1-b3bf-cfbb5e2e3f78
+          ResourceGroupName: tpuniverse-security-rg
+          WorkspaceName: sentinelws
+          Template: |-
+            // This query fetches recent ASIM network sessions for a specific destination IP address and port.
+            _ASim_NetworkSessionBuiltIn
+            | where DstIpAddr == '{{DstIpAddr}}' and DstPortNumber == '{{DstPortNumber}}'
+            | where TimeGenerated > ago(24h)
