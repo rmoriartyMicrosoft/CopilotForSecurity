@@ -42,6 +42,8 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - MD5
               properties:
                 MD5:
                   type: string
