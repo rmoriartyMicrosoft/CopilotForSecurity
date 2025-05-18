@@ -3,9 +3,9 @@ info:
   title: MD5 Hash Lookup API (BrokerNitrix)
   version: "1.0"
 servers:
-  - url: https://prod-89.eastus.logic.azure.com:443
+  - url: https://prod-34.eastus.logic.azure.com:443
 paths:
-   /workflows/8c84a5f131e44b949ae4564292cad00e/triggers/When_a_HTTP_request_is_received/paths/invoke:    
+   /workflows/4223edf9f15149e49beb5a746747cf88/triggers/When_a_HTTP_request_is_received/paths/invoke:    
      post:
       operationId: MD5HashBroker
       description: Triggers the specified Logic App workflow.
