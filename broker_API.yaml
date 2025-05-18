@@ -5,30 +5,36 @@ info:
 servers:
   - url: https://prod-34.eastus.logic.azure.com:443
 paths:
-   /workflows/4223edf9f15149e49beb5a746747cf88/triggers/When_a_HTTP_request_is_received/paths/invoke:    
-     post:
+  /workflows/4223edf9f15149e49beb5a746747cf88/triggers/When_a_HTTP_request_is_received/paths/invoke:
+    post:
       operationId: MD5HashBroker
-      description: Triggers the specified Logic App workflow.
       summary: Retrieves the original value of a given MD5 hash (BrokerNitrix)
+      description: Triggers the specified Logic App workflow.
       parameters:
         - name: api-version
           in: query
-          default: 2016-10-01
+          required: true
           schema:
             type: string
+            default: "2016-10-01"
         - name: sp
           in: query
+          required: true
           schema:
             type: string
+            default: "/triggers/When_a_HTTP_request_is_received/run"
         - name: sv
-          in: query  
-          default: 1.0
+          in: query
+          required: true
           schema:
             type: string
+            default: "1.0"
         - name: sig
           in: query
+          required: true
           schema:
             type: string
+            default: "_cXYCIkbO9jwpmOTqFzWhJkPE7ix3nVxhDMF6uBlhYE"
       requestBody:
         description: The MD5 hash to look up
         required: true
@@ -41,4 +47,4 @@ paths:
                   type: string
       responses:
         "200":
-        description: Information about the hash, whether found or not.
+          description: Information about the hash, whether found or not.
