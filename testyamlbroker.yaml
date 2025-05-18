@@ -7,4 +7,5 @@ Descriptor:
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/rmoriartyMicrosoft/CopilotForSecurity/refs/heads/main/broker_API.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/rmoriartyMicrosoft/CopilotForSecurity/main/broker_API.yaml
+
